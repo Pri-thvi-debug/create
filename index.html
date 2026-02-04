@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Creatine Question 💪💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px 25px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        max-width: 360px;
+        width: 90%;
+        position: relative;
+        z-index: 2; /* main box */
+      }
+
+      h1 {
+        color: #e91e63;
+        margin-bottom: 10px;
+      }
+
+      p {
+        color: #555;
+        margin-bottom: 25px;
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      button {
+        padding: 12px 22px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      #yesBtn {
+        background: #e91e63;
+        color: white;
+      }
+
+      #noBtn {
+        background: #9e9e9e;
+        color: white;
+        z-index: 5; /* always above the box */
+      }
+
+      .hearts {
+        font-size: 24px;
+        margin-bottom: 10px;
+        animation: float 3s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(10px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="card">
+      <div class="hearts">💖 💝 💕 💘 💗</div>
+      <h1 id="question">Can you buy me a creatine? 💪🥺</h1>
+      <p id="message">Choose wisely 😌</p>
+
+      <div class="buttons" id="btnBox">
+        <button id="yesBtn">Yes 😎</button>
+        <button id="noBtn">No 🙈</button>
+      </div>
+    </div>
+
+    <script>
+      const question = document.getElementById("question");
+      const message = document.getElementById("message");
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn = document.getElementById("noBtn");
+
+      const noStages = [
+        "Really? 😏",
+        "Think again! 🙃",
+        "Don't do this 😤",
+        "Last chance 😢",
+      ];
+
+      let stage = 0;
+      let movedOutside = false;
+
+      function moveNoButtonRandom() {
+        const padding = 10;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+      }
+
+      noBtn.addEventListener("click", () => {
+        // Change text
+        if (stage < noStages.length) {
+          noBtn.textContent = noStages[stage];
+          message.textContent = "Come on… just say yes 💕";
+          stage++;
+        } else {
+          noBtn.textContent = "You can't escape 😜";
+          message.textContent = "Yes is the only good option 💖";
+        }
+
+        // First time: move outside and make absolute
+        if (!movedOutside) {
+          movedOutside = true;
+          document.body.appendChild(noBtn);
+          noBtn.style.position = "absolute";
+        }
+
+        // Move to random visible position
+        moveNoButtonRandom();
+      });
+
+      yesBtn.addEventListener("click", () => {
+        question.textContent = "Yeee! you are my favourite ❤️🥰";
+        message.textContent = "Creatine on you then 😎💪💖";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
